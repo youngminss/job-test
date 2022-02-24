@@ -7,6 +7,22 @@
         "runtime": "automatic"
       }
     ],
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
+    "@emotion/babel-preset-css-prop"
+  ],
+  "plugins": [
+    "@emotion",
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "extensions": [".ts", ".tsx", ".js", ".jsx"],
+        "alias": {
+          "@src": "./src",
+          "@components": "./src/components",
+          "@pages": "./src/pages"
+        }
+      }
+    ]
   ]
 }

@@ -4,15 +4,22 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": ["DOM", "ESNext"],
-    "jsx": "react-jsx",
     "noEmit": true,
     "isolatedModules": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsxImportSource": "@emotion/react",
+    "jsx": "react-jsx",
+    "types": ["react", "@emotion/react/types/css-prop"],
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"]
+    }
   },
-
   "include": ["src/**/*"]
 }

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { MainPage, TestPage, ResultPage, NotFound } from './pages';
+import { MainPage, TestPage, ResultPage, NotFound } from '@src/pages';
 
 const Router = () => {
   return (
