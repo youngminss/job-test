@@ -20,7 +20,9 @@
         "alias": {
           "@src": "./src",
           "@components": "./src/components",
-          "@pages": "./src/pages"
+          "@pages": "./src/pages",
+          "@shared": "./src/shared",
+          "@hooks": "./src/hooks"
         }
       }
     ]

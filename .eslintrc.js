@@ -32,5 +32,11 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/no-unresolved': 'off',
+    'jsx-a11y/no-static-element-interactions': [
+      'off',
+      {
+        handlers: ['onClick'],
+      },
+    ],
   },
 };
