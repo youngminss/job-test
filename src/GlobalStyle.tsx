@@ -20,7 +20,6 @@ const GlobalStyle = (theme: Theme) => css`
 
   html {
     font-family: HSSaemaul-Regular, 'sans-serif';
-    font-size: 14px;
   }
 
   html,
@@ -138,11 +137,10 @@ const GlobalStyle = (theme: Theme) => css`
     background-color: transparent;
     text-decoration: none;
     outline: none;
-    color: inherit;
+
     &:active,
     &:hover {
       text-decoration: none;
-      color: inherit;
       outline: 0;
     }
   }
@@ -155,12 +153,10 @@ const GlobalStyle = (theme: Theme) => css`
     border: none;
     background: none;
     padding: 0;
+    margin: 0;
     user-select: none;
-    cursor: pointer;
     white-space: nowrap;
-    letter-spacing: inherit;
-    font: inherit;
-    color: inherit;
+    cursor: pointer;
   }
 
   input {

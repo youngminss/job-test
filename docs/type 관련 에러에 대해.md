@@ -49,3 +49,12 @@ const 컴포넌트 = () => {
 🚀 해결방법
 
 - define 파일을 생성하여 사용할 Theme 의 type 을 정의한다.
+
+3. typescript 에서 useRef hook 을 사용해서 `배열` 단위로 사용할 경우 MutableRefObject 타입이 충족되지 않아 에러를 뱉어낸다.
+
+```typescript
+const inputRefs = useRef([]) as MutableRefObject<HTMLInputElement[]>;
+```
+
+- 현재는 다음과 같이 alias 를 통해서 MutableRefObject 타입이라는 것을 명시하는 방법으로 해결했다.
+- 좀 더 깔끔한 방법이 있을 것 같아 조사가 필요

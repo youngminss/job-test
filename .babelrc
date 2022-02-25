@@ -21,8 +21,10 @@
           "@src": "./src",
           "@components": "./src/components",
           "@pages": "./src/pages",
+          "@hooks": "./src/hooks",
           "@shared": "./src/shared",
-          "@hooks": "./src/hooks"
+          "@common": "./src/common",
+          "@service": "./src/service"
         }
       }
     ]
