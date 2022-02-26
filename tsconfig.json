@@ -22,7 +22,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@shared/*": ["./src/shared/*"],
       "@common/*": ["./src/common/*"],
-      "@service/*": ["./src/service/*"]
+      "@service/*": ["./src/service/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["src/**/*"]

@@ -11,6 +11,7 @@
     "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
+    "@babel/plugin-transform-runtime",
     "@emotion",
     [
       "module-resolver",
@@ -24,7 +25,8 @@
           "@hooks": "./src/hooks",
           "@shared": "./src/shared",
           "@common": "./src/common",
-          "@service": "./src/service"
+          "@service": "./src/service",
+          "@utils": "./src/utils"
         }
       }
     ]

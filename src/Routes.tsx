@@ -6,8 +6,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<IntroPage />} />
-        <Route path="/app" element={<TestPage />} />
-        <Route path="/report" element={<ReportPage />} />
+        <Route path="/test/*" element={<TestPage />} />
+        <Route path="/report/*" element={<ReportPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

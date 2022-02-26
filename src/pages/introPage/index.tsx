@@ -1,7 +1,7 @@
 import React, { useState, useRef, SyntheticEvent, MutableRefObject } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setGenderToStorage } from '@service/introService';
 import { GENDER_TO_NUMBER, TestContent, TEST_CONTENTS } from '@common/constants';
+import { storage } from '@utils/storage';
 import Button from '@shared/components/button';
 
 const IntroPage = () => {
@@ -29,7 +29,7 @@ const IntroPage = () => {
     }
 
     if ($targetEl.checked) {
-      setGenderToStorage($targetEl.value);
+      storage.setItem('user-gender', $targetEl.value);
     }
 
     const newReady = inputRefs.current[0].checked || inputRefs.current[1].checked;
@@ -39,8 +39,8 @@ const IntroPage = () => {
   const handleClick = (e: React.MouseEvent) => {
     const $target = e.target as HTMLButtonElement;
     const queryNumber = $target.value;
-    const testName = $target.textContent;
-    navigation('/app', { state: { queryNumber: queryNumber, testName: testName } });
+    navigation(`test/${queryNumber}`);
+    storage.setItem('test-number', queryNumber);
   };
 
   return (
