@@ -5,5 +5,6 @@ declare module '@emotion/react' {
     bgColor: string;
     fontMainColor: string;
     fontSubColor: string;
+    fontOppositeColor: string;
   }
 }

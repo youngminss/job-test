@@ -1,113 +1,158 @@
-import React, { useState, useRef, SyntheticEvent, MutableRefObject } from 'react';
+import { css, useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { GENDER_TO_NUMBER, TestContent, TEST_CONTENTS } from '@common/constants';
-import { storage } from '@utils/storage';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { GENDER_TO_NUMBER, TestContent, TEST_CONTENTS, TARGET_SERIAL_NUMBER, ERROR_MESSAGES } from '@common/constants';
+import { UserFormData } from '@service/types';
 import Button from '@shared/components/button';
+import { Theme } from '@src/shared/style/types';
+import { utilsTheme } from '@src/shared/style/Theme';
 
 const IntroPage = () => {
+  const theme = useTheme();
   const navigation = useNavigate();
-  const [isReady, setIsReady] = useState(false);
-  const inputRefs = useRef([]) as MutableRefObject<HTMLInputElement[]>;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFormData>({
+    defaultValues: {
+      qestrnSeq: '',
+      gender: '',
+      name: '',
+      email: '',
+      school: '',
+      grade: '',
+    },
+  });
 
-  const submitHandler = (e: SyntheticEvent) => {
-    e.preventDefault();
-    // 검사 선택지 슬라이드로 이동하기
-  };
-
-  const checkHandler = (e: SyntheticEvent) => {
-    if (!(e.target instanceof HTMLInputElement)) {
-      return;
-    }
-
-    const $targetEl = e.target;
-    if ($targetEl === inputRefs.current[0]) {
-      inputRefs.current[1].checked = false;
-    }
-
-    if ($targetEl === inputRefs.current[1]) {
-      inputRefs.current[0].checked = false;
-    }
-
-    if ($targetEl.checked) {
-      storage.setItem('user-gender', $targetEl.value);
-    }
-
-    const newReady = inputRefs.current[0].checked || inputRefs.current[1].checked;
-    setIsReady(newReady);
-  };
-
-  const handleClick = (e: React.MouseEvent) => {
-    const $target = e.target as HTMLButtonElement;
-    const queryNumber = $target.value;
-    navigation(`test/${queryNumber}`);
-    storage.setItem('test-number', queryNumber);
+  const onSubmit: SubmitHandler<UserFormData> = (data) => {
+    navigation(`/test/${data.qestrnSeq}`, { state: data });
   };
 
   return (
-    <main>
+    <main css={CustomContainerStyle()}>
       <h1>커리어넷 OPEN API 직업심리검사</h1>
-      <div>
-        <article>
-          <p>
-            커리어넷에서 제공하는 Open API 기반으로 진로 의사결정에 도움이 되는 테스트를 체험할 수 있습니다. 검사는
-            최대한 솔직하고 직관적인 답변을 골라주시면 더욱 만족스러운 결과를 받아볼 수 있습니다. 감사합니다.
-          </p>
-        </article>
 
-        <form onSubmit={submitHandler} onChange={checkHandler}>
-          <span>본인의 성별을 체크하세요.</span>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
           <div>
-            <div>
-              <input
-                type="checkbox"
-                id="gender-male"
-                name="gender"
-                value={GENDER_TO_NUMBER.MALE}
-                ref={(el) => (inputRefs.current[0] = el as HTMLInputElement)}
-              />
-              <label htmlFor="gender-male">👱‍♂️</label>
-            </div>
-
-            <div>
-              <input
-                type="checkbox"
-                id="gender-female"
-                name="gender"
-                value={GENDER_TO_NUMBER.FEMALE}
-                ref={(el) => (inputRefs.current[1] = el as HTMLInputElement)}
-              />
-              <label htmlFor="gender-female">👱‍♀️</label>
-            </div>
+            <h2>진행할 테스트를 선택해주세요.</h2>
           </div>
 
-          <Button type="submit" disabled={!isReady}>
-            시작하기
-          </Button>
-        </form>
-      </div>
+          <ul>
+            {TEST_CONTENTS.map((testContent: TestContent, idx: number) => {
+              return (
+                <li css={CustomRadioContainerStyle(theme)} key={idx}>
+                  <input
+                    css={CustomRadioStyle(theme)}
+                    type="radio"
+                    id={`test-${testContent.queryNumber}`}
+                    value={testContent.queryNumber}
+                    {...register('qestrnSeq', { required: true })}
+                  />
+                  <label htmlFor={`test-${testContent.queryNumber}`}>{testContent.text}</label>
+                </li>
+              );
+            })}
+          </ul>
+          {errors.qestrnSeq?.type === 'required' && <span>{ERROR_MESSAGES.testContent}</span>}
+        </div>
 
-      <div>
-        <article>
-          <p>
-            자신을 이해하는데 도움이 되는 심리검사는 진로 의사결정에 유용한 정보를 제공합니다. 진행할 테스트를
-            선택해주세요.
-          </p>
-        </article>
+        <div>
+          <div>
+            <h2>필요한 정보를 입력해주세요.</h2>
+          </div>
 
-        <ul>
-          {TEST_CONTENTS.map((content: TestContent, idx: number) => {
-            return (
-              <li key={idx}>
-                <button type="button" value={content.queryNumber} onClick={handleClick}>
-                  {content.text}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+          <div>
+            <label htmlFor="user-name">이름</label>
+            <input type="text" id="user-name" {...register('name', { required: true })} />
+            {errors.name?.type === 'required' && <span>{ERROR_MESSAGES.name}</span>}
+          </div>
+
+          <div>
+            <label htmlFor="user-name">이메일</label>
+            <input type="email" id="user-email" {...register('email')} />
+          </div>
+
+          <div>
+            <span>성별 선택</span>
+            <div>
+              <div>
+                <input
+                  css={CustomRadioStyle(theme)}
+                  type="radio"
+                  id="gender-male"
+                  value={GENDER_TO_NUMBER.MALE}
+                  {...register('gender', { required: true })}
+                />
+                <label htmlFor="gender-male">👱‍♂️</label>
+              </div>
+              <div>
+                <input
+                  css={CustomRadioStyle(theme)}
+                  type="radio"
+                  id="gender-female"
+                  value={GENDER_TO_NUMBER.FEMALE}
+                  {...register('gender', { required: true })}
+                />
+                <label htmlFor="gender-female">👱‍♀️</label>
+              </div>
+            </div>
+
+            {errors.gender?.type === 'required' && <span>{ERROR_MESSAGES.gender}</span>}
+          </div>
+
+          <div>
+            <span>소속 선택</span>
+
+            <ul>
+              {TARGET_SERIAL_NUMBER.map((target, idx) => {
+                return (
+                  <li key={idx}>
+                    <input
+                      css={CustomRadioStyle(theme)}
+                      type="radio"
+                      value={target.targetSerial}
+                      id={`target-user-${target.targetSerial}`}
+                      {...register('trgetSe', { required: true })}
+                    />
+                    <label htmlFor={`target-user-${target.targetSerial}`}>{target.text}</label>
+                  </li>
+                );
+              })}
+            </ul>
+            {errors.trgetSe?.type === 'required' && <span>{ERROR_MESSAGES.targetSe}</span>}
+          </div>
+
+          <Button type="submit">시작하기</Button>
+        </div>
+      </form>
     </main>
   );
 };
 
 export default IntroPage;
+
+const CustomContainerStyle = () => css`
+  ${utilsTheme.flexCenterDirectionColumn};
+  ${utilsTheme.container};
+`;
+
+const CustomRadioContainerStyle = (theme: Theme) => css``;
+
+const CustomRadioStyle = (theme: Theme) => css`
+  & {
+    display: none;
+  }
+
+  & + label {
+    color: ${theme.fontSubColor};
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  &:checked + label {
+    background-color: ${theme.fontMainColor};
+    color: ${theme.fontOppositeColor};
+  }
+`;

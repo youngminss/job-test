@@ -1,7 +1,7 @@
+import { Global, ThemeProvider } from '@emotion/react';
 import Router from '@src/Routes';
 import ThemeToggle from '@src/components/themeToggle';
 import GlobalStyle from '@src/GlobalStyle';
-import { Global, ThemeProvider } from '@emotion/react';
 import { default as THEME } from '@shared/style/Theme';
 import useTheme from '@hooks/useTheme';
 

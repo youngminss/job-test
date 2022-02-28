@@ -115,6 +115,11 @@ const GlobalStyle = (theme: Theme) => css`
     background-color: ${theme.bgColor};
   }
 
+  #root {
+    position: relative;
+    height: 100vh;
+  }
+
   h1,
   h2,
   h3,

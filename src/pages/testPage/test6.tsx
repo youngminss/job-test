@@ -1,28 +1,53 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getTest } from '@service/testService';
-import { storage } from '@utils/storage';
+import { API_KEY } from '@service/root';
+import { getTest, postTest } from '@service/testService';
 import { TEST_TITLE } from '@common/constants';
+import Question from '@components/questionItem';
 import Spinner from '@components/spinner';
 import NotFound from '@pages/notFound';
 import { QuestionItem, QuestionTwoItem } from './types';
-import Question from '@components/questionItem';
+import { UserFormData } from '@service/types';
 
 const Test6 = () => {
-  const queryNumber = storage.getItem('test-number');
-  const { isLoading, isError, data } = useQuery(`test=${queryNumber}`, async () => await getTest(queryNumber));
-
+  const location = useLocation();
+  const state = location?.state as UserFormData;
+  const { isLoading, isError, data } = useQuery(`test-${state.qestrnSeq}`, async () => await getTest(state.qestrnSeq));
   const [checkList, setCheckList] = useState<{ [key: string]: string }>({});
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
   const [isNotFirstQuestion, setIsNotFirstQuestion] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
+  const navigation = useNavigate();
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const convertedCheckList: Array<Array<string>> = Object.entries(checkList);
     const queryString = convertedCheckList.map(([key, value]) => `B${key}=${value}`).join(' ');
-    console.log(queryString);
+
+    const postData = {
+      apikey: API_KEY,
+      qestrnSeq: state.qestrnSeq,
+      trgetSe: state.trgetSe,
+      name: state.name,
+      gender: state.gender,
+      school: state.school,
+      grade: state.grade,
+      email: state.email,
+      startDtm: String(new Date().getTime()),
+      answers: queryString,
+    };
+
+    const data = await postTest(state.qestrnSeq, postData);
+    navigation(`/report`, {
+      state: {
+        inspct: data.RESULT?.inspctSeq,
+        url: data.RESULT?.url,
+        ...state,
+      },
+      replace: true,
+    });
   };
 
   const clickHandler = (e: React.MouseEvent) => {
@@ -48,7 +73,7 @@ const Test6 = () => {
   if (isError) return <NotFound />;
   return (
     <div>
-      <h1>{TEST_TITLE[queryNumber]}</h1>
+      <h1>{TEST_TITLE[state.qestrnSeq]}</h1>
 
       <form onSubmit={submitHandler} onChange={changeHandler}>
         {data.RESULT.map((questionItem: QuestionItem, idx: number) => {
