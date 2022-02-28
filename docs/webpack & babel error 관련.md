@@ -23,3 +23,40 @@ CRA 나 NEXT 같은 보일러 플레이트에서 프로젝트를 하다가 이 �
   "plugins": ["@babel/plugin-transform-runtime"]
 }
 ```
+
+2. depth 가 1 이상인 url 에서 새로고침시 404 Not Found Error
+
+- client side 에서 router 를 사용하기 때문에 새로고침에 의한 새로운 페이지를 서버로 바로 요청하면 보열줄 page 를 모른다.
+- 따라서 서버에서 리다이렉트 페이지를 보여준다던지, 또는 `클라이언트에서 webpack 설정을 수정한다.`
+
+🚀 해결 방법
+
+> webpack.config 파일에서 devSever 설정을 다음과 같이 해준다.
+
+```javascript
+devServer: {
+  historyApiFallback: true,
+  hot: true,
+},
+```
+
+그리고, output 에 `publicPath` 를 root 로 설정해준다. ( 나는 이 단계에서 해결했다. )
+
+```javascript
+output: {
+  path: path.resolve(__dirname, '..', './build'),
+  publicPath: '/',
+  filename: 'bundle.js',
+},
+```
+
+- 위 에서 `path` 는 번들된 결과 파일들의 저장 위치를, `publicPath` 는 webpack plugin 으로 생성되는 index.html 내부에서 bundle.js 파일의 path 와 관련있다고 한다.
+
+- 결과적으로 설정 전과 후는 다음의 예시와 같다.
+
+```javascript
+// publicPath 전
+<script defer src="bundle.js"></script>
+// publicPath 후
+<script defer src="/bundle.js"></script>
+```
