@@ -17,47 +17,32 @@ const QuestionFiveItem = ({ item }: { item: QuestionFiveItems }) => {
     answerScore05,
   } = item;
 
+  const radioItems = [
+    { answer: answer01, answerScore: answerScore01 },
+    { answer: answer02, answerScore: answerScore02 },
+    { answer: answer03, answerScore: answerScore03 },
+    { answer: answer04, answerScore: answerScore04 },
+    { answer: answer05, answerScore: answerScore05 },
+  ];
+
   return (
     <div>
       <h3>
         {qitemNo}.{question}
       </h3>
       <div>
-        <RadioButton
-          data-qitemno={qitemNo}
-          id={`question-${qitemNo + answer01}`}
-          name={`question-item-${qitemNo}`}
-          value={answerScore01}
-          labelText={answer01}
-        />
-        <RadioButton
-          data-qitemno={qitemNo}
-          id={`question-${qitemNo + answer02}`}
-          name={`question-item-${qitemNo}`}
-          value={answerScore02}
-          labelText={answer02}
-        />
-        <RadioButton
-          data-qitemno={qitemNo}
-          id={`question-${qitemNo + answer03}`}
-          name={`question-item-${qitemNo}`}
-          value={answerScore03}
-          labelText={answer03}
-        />
-        <RadioButton
-          data-qitemno={qitemNo}
-          id={`question-${qitemNo + answer04}`}
-          name={`question-item-${qitemNo}`}
-          value={answerScore04}
-          labelText={answer04}
-        />
-        <RadioButton
-          data-qitemno={qitemNo}
-          id={`question-${qitemNo + answer05}`}
-          name={`question-item-${qitemNo}`}
-          value={answerScore05}
-          labelText={answer05}
-        />
+        {radioItems.map((radioItem) => {
+          return (
+            <RadioButton
+              key={qitemNo}
+              data-qitemno={qitemNo}
+              id={`question-${qitemNo + radioItem.answer}`}
+              name={`question-item-${qitemNo}`}
+              value={radioItem.answerScore}
+              labelText={radioItem.answer}
+            />
+          );
+        })}
       </div>
     </div>
   );

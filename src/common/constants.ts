@@ -60,10 +60,10 @@ export const TARGET_SERIAL_NUMBER: TargetSerial[] = [
 ];
 
 export const ERROR_MESSAGES: { [key: string]: string } = {
-  testContent: '테스트 유형을 선택해주세요.',
-  name: '이름을 입력해주세요.',
-  gender: '성별을 선택해주세요.',
-  targetSe: '본인 소속을 선택해주세요.',
+  testContent: '테스트 유형을 선택해주세요. ☝',
+  name: '이름을 입력해주세요. ☝',
+  gender: '성별을 선택해주세요. ☝',
+  targetSe: '본인 소속을 선택해주세요. ☝',
 };
 
 export const CART_DATAS: { [key: string]: { [key: string]: string } } = {
