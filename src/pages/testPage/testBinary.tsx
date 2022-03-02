@@ -4,13 +4,13 @@ import { useQuery } from 'react-query';
 import { API_KEY } from '@service/root';
 import { getTest, postTest } from '@service/testService';
 import { TEST_TITLE } from '@common/constants';
-import Question from '@components/questionItem';
+import QuestionTwoItem from '@src/components/questionItem/questionTwoItem';
 import Spinner from '@components/spinner';
 import NotFound from '@pages/notFound';
-import { QuestionItem, QuestionTwoItem } from './types';
+import { QuestionItem, QuestionTwoItems } from './types';
 import { UserFormData } from '@service/types';
 
-const Test6 = () => {
+const TestBinary = () => {
   const location = useLocation();
   const state = location?.state as UserFormData;
   const { isLoading, isError, data } = useQuery(`test-${state.qestrnSeq}`, async () => await getTest(state.qestrnSeq));
@@ -40,7 +40,7 @@ const Test6 = () => {
     };
 
     const data = await postTest(state.qestrnSeq, postData);
-    navigation(`/report`, {
+    navigation(`/report/pieReport`, {
       state: {
         inspct: data.RESULT?.inspctSeq,
         url: data.RESULT?.url,
@@ -79,9 +79,9 @@ const Test6 = () => {
         {data.RESULT.map((questionItem: QuestionItem, idx: number) => {
           const usefulQuestionItem = Object.entries(questionItem)
             .filter((item) => item[1] !== null)
-            .reduce((obj, item) => ({ ...obj, [item[0]]: item[1] }), {}) as QuestionTwoItem;
+            .reduce((obj, item) => ({ ...obj, [item[0]]: item[1] }), {}) as QuestionTwoItems;
 
-          return <Question key={idx} item={usefulQuestionItem} />;
+          return <QuestionTwoItem key={idx} item={usefulQuestionItem} />;
         })}
 
         <div>
@@ -102,4 +102,4 @@ const Test6 = () => {
   );
 };
 
-export default Test6;
+export default TestBinary;

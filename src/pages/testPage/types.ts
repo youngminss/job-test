@@ -2,7 +2,7 @@ export interface QuestionItem {
   [key: string]: string & null;
 }
 
-export interface QuestionTwoItem {
+export interface QuestionTwoItems {
   qitemNo: number;
   question: string;
   answer01: string;
@@ -13,7 +13,7 @@ export interface QuestionTwoItem {
   answerScore02: string;
 }
 
-export interface QuestionFiveItem {
+export interface QuestionFiveItems {
   qitemNo: number;
   question: string;
   answer01: string;

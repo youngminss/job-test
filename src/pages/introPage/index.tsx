@@ -26,23 +26,21 @@ const IntroPage = () => {
   });
 
   const onSubmit: SubmitHandler<UserFormData> = (data) => {
-    navigation(`/test/${data.qestrnSeq}`, { state: data });
+    navigation(`/test/${data.qestrnSeq}`, { state: data, replace: true });
   };
 
   return (
     <main css={CustomContainerStyle()}>
       <h1>커리어넷 OPEN API 직업심리검사</h1>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} css={FormContainer()}>
         <div>
           <div>
             <h2>진행할 테스트를 선택해주세요.</h2>
           </div>
-
           <ul>
             {TEST_CONTENTS.map((testContent: TestContent, idx: number) => {
               return (
-                <li css={CustomRadioContainerStyle(theme)} key={idx}>
+                <li key={idx}>
                   <input
                     css={CustomRadioStyle(theme)}
                     type="radio"
@@ -62,18 +60,15 @@ const IntroPage = () => {
           <div>
             <h2>필요한 정보를 입력해주세요.</h2>
           </div>
-
           <div>
             <label htmlFor="user-name">이름</label>
             <input type="text" id="user-name" {...register('name', { required: true })} />
             {errors.name?.type === 'required' && <span>{ERROR_MESSAGES.name}</span>}
           </div>
-
           <div>
             <label htmlFor="user-name">이메일</label>
             <input type="email" id="user-email" {...register('email')} />
           </div>
-
           <div>
             <span>성별 선택</span>
             <div>
@@ -101,7 +96,6 @@ const IntroPage = () => {
 
             {errors.gender?.type === 'required' && <span>{ERROR_MESSAGES.gender}</span>}
           </div>
-
           <div>
             <span>소속 선택</span>
 
@@ -123,7 +117,6 @@ const IntroPage = () => {
             </ul>
             {errors.trgetSe?.type === 'required' && <span>{ERROR_MESSAGES.targetSe}</span>}
           </div>
-
           <Button type="submit">시작하기</Button>
         </div>
       </form>
@@ -138,7 +131,10 @@ const CustomContainerStyle = () => css`
   ${utilsTheme.container};
 `;
 
-const CustomRadioContainerStyle = (theme: Theme) => css``;
+const FormContainer = () => css`
+  ${utilsTheme.flexCenterDirectionColumn};
+  height: 100%;
+`;
 
 const CustomRadioStyle = (theme: Theme) => css`
   & {
@@ -151,6 +147,7 @@ const CustomRadioStyle = (theme: Theme) => css`
     cursor: pointer;
   }
 
+  &:hover + label,
   &:checked + label {
     background-color: ${theme.fontMainColor};
     color: ${theme.fontOppositeColor};

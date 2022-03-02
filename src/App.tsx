@@ -5,6 +5,9 @@ import GlobalStyle from '@src/GlobalStyle';
 import { default as THEME } from '@shared/style/Theme';
 import useTheme from '@hooks/useTheme';
 
+import 'swiper/css/bundle';
+import 'swiper/css';
+
 const App = () => {
   const [theme, onToggle] = useTheme();
 

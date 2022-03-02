@@ -1,10 +1,10 @@
-import { NUMBER_TO_VALUES } from '@common/constants';
+import { CART_DATAS } from '@common/constants';
 
-export const getChartData = (frequencyString: string) => {
+export const getPieChartData = (qestrnSeq: string, frequencyString: string) => {
   const convertedFrequencys = frequencyString.trim().split(' ');
   const chartData = convertedFrequencys.map((convertedFrequency) => {
     const [valueNo, frequency] = convertedFrequency.split('=');
-    const label = NUMBER_TO_VALUES[valueNo];
+    const label = CART_DATAS[qestrnSeq][valueNo];
 
     return {
       id: label,
@@ -13,6 +13,9 @@ export const getChartData = (frequencyString: string) => {
       color: `hsl(${Number(valueNo) + 1}, 70%, 50%)`,
     };
   });
-
   return chartData;
+};
+
+export const getBarChartData = (quetrnSeq: string, frequencyStrings: string[]) => {
+  console.log(frequencyStrings);
 };

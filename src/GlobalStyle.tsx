@@ -167,6 +167,17 @@ const GlobalStyle = (theme: Theme) => css`
   input {
     outline: none;
   }
+
+  .swiper {
+    height: 100vh;
+  }
+
+  .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export default GlobalStyle;
