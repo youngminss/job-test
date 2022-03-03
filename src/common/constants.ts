@@ -1,17 +1,4 @@
-interface Gender {
-  MALE: number;
-  FEMALE: number;
-}
-
-export interface TestContent {
-  queryNumber: number;
-  text: string;
-}
-
-export interface TargetSerial {
-  targetSerial: number;
-  text: string;
-}
+import { Gender, TestContent, TargetSerial } from '@common/types';
 
 export const GENDER_TO_NUMBER: Gender = {
   MALE: 100323,

@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { GENDER_TO_NUMBER, TestContent, TEST_CONTENTS, TARGET_SERIAL_NUMBER, ERROR_MESSAGES } from '@common/constants';
+import { GENDER_TO_NUMBER, TEST_CONTENTS, TARGET_SERIAL_NUMBER, ERROR_MESSAGES } from '@common/constants';
+import { TestContent } from '@common/types';
 import { UserFormData } from '@service/types';
+import { Theme } from '@shared/style/types';
+import { utilsTheme } from '@shared/style/Theme';
 import Button from '@shared/components/button';
-import { Theme } from '@src/shared/style/types';
-import { utilsTheme } from '@src/shared/style/Theme';
 
 const IntroPage = () => {
   const theme = useTheme();
   const navigation = useNavigate();
+  const [translateX, setTranslateX] = useState(0);
   const {
     register,
     handleSubmit,
@@ -25,15 +27,12 @@ const IntroPage = () => {
       grade: '',
     },
   });
-  const [translateX, setTranslateX] = useState(0);
 
   const onSubmit: SubmitHandler<UserFormData> = (data) => {
     navigation(`/test/${data.qestrnSeq}`, { state: data, replace: true });
   };
 
-  const onClick = () => {
-    setTranslateX(translateX === 0 ? 375 : 0);
-  };
+  const onClick = () => setTranslateX(translateX === 0 ? 375 : 0);
 
   return (
     <main css={CustomContainerStyle()}>

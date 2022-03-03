@@ -13,6 +13,7 @@ export const getPieChartData = (qestrnSeq: string, frequencyString: string) => {
       color: `hsl(${Number(valueNo) + 1}, 70%, 50%)`,
     };
   });
+
   return chartData;
 };
 
@@ -30,6 +31,5 @@ export const getBarChartData = (quetrnSeq: string, frequencyStrings: string[]) =
     };
   });
 
-  console.log(chartData);
   return chartData;
 };
