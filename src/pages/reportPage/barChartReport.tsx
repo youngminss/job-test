@@ -7,6 +7,8 @@ import { CustomBarChart } from '@components/chart';
 import { getReportResult } from '@service/reportService';
 import { ReportUseData } from '@service/types';
 import { getBarChartData } from '@src/common/reportChartDataMaker';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '@src/shared/style/types';
 
 const BarChartReport = () => {
   const location = useLocation();
@@ -16,23 +18,31 @@ const BarChartReport = () => {
     getReportResult(url.split('=')[1])
   );
   const [chartData, setChartData] = useState<any>();
+  const theme = useTheme();
 
   useEffect(() => {
     if (isFetched) {
       const frequencyStrings = [data.result?.wonScore, data.result?.wonScore2];
-      console.log(frequencyStrings);
-      // setChartData(getBarChartData(state.qestrnSeq, frequencyString));
+      setChartData(getBarChartData(qestrnSeq, frequencyStrings));
     }
   }, [isFetched]);
 
   if (isLoading) return <Spinner />;
   if (isError) return <NotFound />;
   return (
-    <div>
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      `}
+    >
       <CustomBarChart data={chartData} />
 
       <div>
-        <table>
+        <table css={tableStyle(theme)}>
           <thead>
             <tr>
               <th colSpan={2}>테스트 결과</th>
@@ -54,7 +64,14 @@ const BarChartReport = () => {
             <tr>
               <td>상세정보링크</td>
               <td>
-                <a href={url} target="_blank" rel="noreferrer">
+                <a
+                  css={css`
+                    color: ${theme.fontSubColor};
+                  `}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   확인하러가기 🚀
                 </a>
               </td>
@@ -63,11 +80,42 @@ const BarChartReport = () => {
         </table>
       </div>
 
-      <div>
-        <a href="/">홈으로</a>
+      <div
+        css={css`
+          margin: 20px;
+        `}
+      >
+        <a
+          css={css`
+            font-size: 1.5rem;
+            color: ${theme.fontSubColor};
+          `}
+          href="/"
+        >
+          홈으로
+        </a>
       </div>
     </div>
   );
 };
 
 export default BarChartReport;
+
+const tableStyle = (theme: Theme) => css`
+  & {
+    border-collapse: collapse;
+  }
+
+  & thead,
+  & td {
+    border: 1px solid ${theme.fontSubColor};
+    padding: 10px;
+  }
+
+  & tbody tr > td:nth-of-type(2) {
+    text-align: center;
+  }
+
+  font-size: 1.5rem;
+  color: ${theme.fontSubColor};
+`;

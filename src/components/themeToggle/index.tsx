@@ -14,7 +14,7 @@ const ThemeToggle = ({ mode, setToggle }: { mode: string; setToggle: () => void 
 export default ThemeToggle;
 
 const ToggleContainer = (theme: Theme) => css`
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 10px;
   display: flex;

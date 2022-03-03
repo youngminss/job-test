@@ -17,5 +17,19 @@ export const getPieChartData = (qestrnSeq: string, frequencyString: string) => {
 };
 
 export const getBarChartData = (quetrnSeq: string, frequencyStrings: string[]) => {
-  console.log(frequencyStrings);
+  const convertedFrequencys = frequencyStrings.map((frequencyString) => frequencyString.split(',').slice(0, -1));
+  const chartData = convertedFrequencys[0].map((_: any, i: number) => {
+    const label = CART_DATAS[quetrnSeq][i + 1];
+
+    return {
+      subject: label,
+      전공효능감: Number(convertedFrequencys[0][i]),
+      majorEfficacyColor: `hsl(1, 70%, 50%)`,
+      전공직업흥미도: Number(convertedFrequencys[1][i]),
+      majorInterestColor: `hsl(1, 70%, 50%)`,
+    };
+  });
+
+  console.log(chartData);
+  return chartData;
 };

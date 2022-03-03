@@ -1,5 +1,6 @@
 import RadioButton from '@src/shared/components/radioButton';
 import { QuestionFiveItems } from '@pages/testPage/types';
+import { css } from '@emotion/react';
 
 const QuestionFiveItem = ({ item }: { item: QuestionFiveItems }) => {
   const {
@@ -28,13 +29,20 @@ const QuestionFiveItem = ({ item }: { item: QuestionFiveItems }) => {
   return (
     <div>
       <h3>
-        {qitemNo}.{question}
+        {qitemNo}. {question}
       </h3>
-      <div>
+
+      <div
+        css={css`
+          display: flex;
+          justify-content: space-evenly;
+          margin: 15px;
+        `}
+      >
         {radioItems.map((radioItem) => {
           return (
             <RadioButton
-              key={qitemNo}
+              key={qitemNo + radioItem.answer}
               data-qitemno={qitemNo}
               id={`question-${qitemNo + radioItem.answer}`}
               name={`question-item-${qitemNo}`}

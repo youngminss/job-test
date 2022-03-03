@@ -1,55 +1,19 @@
-import { ResponsiveBar } from '@nivo/bar';
-import { css, useTheme } from '@emotion/react';
+import { BarDatum, ResponsiveBar } from '@nivo/bar';
+import { css } from '@emotion/react';
 
-const CustomBarChart = ({ data }) => {
-  const theme = useTheme();
-
+const CustomBarChart = ({ data }: { data: BarDatum[] }) => {
   return (
     <div css={BarChartContainer()}>
       <ResponsiveBar
         data={data}
-        keys={['hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut']}
-        indexBy="country"
+        keys={['전공효능감', '전공직업흥미도']}
+        indexBy="subject"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
         groupMode="grouped"
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
         colors={{ scheme: 'category10' }}
-        defs={[
-          {
-            id: 'dots',
-            type: 'patternDots',
-            background: 'inherit',
-            color: '#38bcb2',
-            size: 4,
-            padding: 1,
-            stagger: true,
-          },
-          {
-            id: 'lines',
-            type: 'patternLines',
-            background: 'inherit',
-            color: '#eed312',
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-          },
-        ]}
-        fill={[
-          {
-            match: {
-              id: 'fries',
-            },
-            id: 'dots',
-          },
-          {
-            match: {
-              id: 'sandwich',
-            },
-            id: 'lines',
-          },
-        ]}
         borderColor={{
           from: 'color',
           modifiers: [['darker', 1.6]],
@@ -60,15 +24,15 @@ const CustomBarChart = ({ data }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'country',
+          legend: 'subject',
           legendPosition: 'middle',
           legendOffset: 32,
         }}
         axisLeft={{
-          tickSize: 5,
-          tickPadding: 5,
+          tickSize: 1,
+          tickPadding: 1,
           tickRotation: 0,
-          legend: 'food',
+          legend: 'count',
           legendPosition: 'middle',
           legendOffset: -40,
         }}
@@ -82,7 +46,7 @@ const CustomBarChart = ({ data }) => {
         legends={[
           {
             dataFrom: 'keys',
-            anchor: 'bottom-right',
+            anchor: 'right',
             direction: 'column',
             justify: false,
             translateX: 120,
@@ -103,6 +67,7 @@ const CustomBarChart = ({ data }) => {
             ],
           },
         ]}
+        isFocusable={true}
         role="application"
         ariaLabel="Nivo bar chart demo"
         barAriaLabel={function (e) {

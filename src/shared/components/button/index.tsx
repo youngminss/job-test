@@ -27,8 +27,8 @@ export default Button;
 const CustomButton = (theme: Theme) => css`
   margin: 0 auto;
   color: ${theme.fontMainColor};
-  border: ${`1px solid ${theme.fontMainColor}`};
-  border-radius: 10px;
+  border: 3px solid ${theme.fontMainColor};
+  border-radius: 5px;
   font-size: 1.25rem;
   padding: 5px;
 

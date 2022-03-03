@@ -17,10 +17,10 @@ const RadioButton = ({
   const theme = useTheme();
 
   return (
-    <>
+    <div>
       <input css={CustomRadioStyle(theme)} type="radio" id={id} name={name} value={value} {...props} />
       <label htmlFor={id}>{labelText}</label>
-    </>
+    </div>
   );
 };
 
@@ -32,6 +32,7 @@ const CustomRadioStyle = (theme: Theme) => css`
   }
 
   & + label {
+    padding: 10px;
     color: ${theme.fontSubColor};
     font-size: 1.5rem;
     cursor: pointer;

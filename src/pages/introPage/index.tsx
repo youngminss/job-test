@@ -46,7 +46,12 @@ const IntroPage = () => {
           <ul>
             {TEST_CONTENTS.map((testContent: TestContent, idx: number) => {
               return (
-                <li key={idx}>
+                <li
+                  css={css`
+                    padding: 10px;
+                  `}
+                  key={idx}
+                >
                   <input
                     css={CustomRadioStyle(theme)}
                     type="radio"
@@ -76,31 +81,51 @@ const IntroPage = () => {
             <h2>필요한 정보를 입력해주세요.</h2>
           </div>
 
-          <div>
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+            `}
+          >
             <div>
-              <label htmlFor="user-name">이름</label>
+              <label
+                css={css`
+                  margin-right: 10px;
+                `}
+                htmlFor="user-name"
+              >
+                이름
+              </label>
               <input type="text" id="user-name" {...register('name', { required: true })} />
             </div>
             <div>
-              <label htmlFor="user-name">이메일</label>
+              <label
+                css={css`
+                  margin-right: 10px;
+                `}
+                htmlFor="user-name"
+              >
+                이메일
+              </label>
               <input type="email" id="user-email" {...register('email')} />
             </div>
-            {errors.name?.type === 'required' && (
-              <span
-                css={css`
-                  color: red;
-                `}
-              >
-                {ERROR_MESSAGES.name}
-              </span>
-            )}
           </div>
-
+          {errors.name?.type === 'required' && (
+            <span
+              css={css`
+                color: red;
+              `}
+            >
+              {ERROR_MESSAGES.name}
+            </span>
+          )}
           <div>
             <span>성별 선택</span>
             <div
               css={css`
                 ${utilsTheme.flexCenterDirectionRow}
+                margin: 10px;
               `}
             >
               <div>
@@ -124,24 +149,28 @@ const IntroPage = () => {
                 <label htmlFor="gender-female">👱‍♀️</label>
               </div>
             </div>
-
-            {errors.gender?.type === 'required' && (
-              <span
-                css={css`
-                  color: red;
-                `}
-              >
-                {ERROR_MESSAGES.gender}
-              </span>
-            )}
           </div>
+          {errors.gender?.type === 'required' && (
+            <span
+              css={css`
+                color: red;
+              `}
+            >
+              {ERROR_MESSAGES.gender}
+            </span>
+          )}
 
           <div>
             <span>소속 선택</span>
             <ul>
               {TARGET_SERIAL_NUMBER.map((target, idx) => {
                 return (
-                  <li key={idx}>
+                  <li
+                    css={css`
+                      padding: 10px;
+                    `}
+                    key={idx}
+                  >
                     <input
                       css={CustomRadioStyle(theme)}
                       type="radio"
@@ -154,17 +183,16 @@ const IntroPage = () => {
                 );
               })}
             </ul>
-            {errors.trgetSe?.type === 'required' && (
-              <span
-                css={css`
-                  color: red;
-                `}
-              >
-                {ERROR_MESSAGES.targetSe}
-              </span>
-            )}
           </div>
-
+          {errors.trgetSe?.type === 'required' && (
+            <span
+              css={css`
+                color: red;
+              `}
+            >
+              {ERROR_MESSAGES.targetSe}
+            </span>
+          )}
           <Button type="submit">시작하기</Button>
         </div>
       </form>
@@ -215,6 +243,7 @@ const CustomRadioStyle = (theme: Theme) => css`
   }
 
   & + label {
+    padding: 10px;
     color: ${theme.fontSubColor};
     font-size: 1.5rem;
     cursor: pointer;

@@ -9,6 +9,8 @@ import { QuestionFiveItem } from '@components/questionItem';
 import { TEST_TITLE } from '@common/constants';
 import Spinner from '@components/spinner';
 import NotFound from '@pages/notFound';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '@src/shared/style/types';
 
 const TestMulti = () => {
   const location = useLocation();
@@ -20,6 +22,7 @@ const TestMulti = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
   const [isNotFirstQuestion, setIsNotFirstQuestion] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
+  const theme = useTheme();
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +45,7 @@ const TestMulti = () => {
 
     const data = await postTest(state.qestrnSeq, postData);
     const to = state.qestrnSeq === '9' ? '/report/barReport' : '/report/pieReport';
-    console.log(to);
+
     navigation(to, {
       state: {
         inspct: data.RESULT?.inspctSeq,
@@ -75,7 +78,14 @@ const TestMulti = () => {
   if (isLoading) return <Spinner />;
   if (isError) return <NotFound />;
   return (
-    <div>
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      `}
+    >
       <h1>{TEST_TITLE[state.qestrnSeq]}</h1>
 
       <form onSubmit={submitHandler} onChange={changeHandler}>
@@ -87,18 +97,33 @@ const TestMulti = () => {
           return <QuestionFiveItem key={idx} item={usefulQuestionItem} />;
         })}
 
-        <div>
-          {isNotFirstQuestion && (
-            <button type="button" value={-1} onClick={clickHandler}>
-              이전
-            </button>
-          )}
-          {!isLastQuestion && (
-            <button type="button" value={1} onClick={clickHandler}>
-              다음
-            </button>
-          )}
-          {isLastQuestion && <button type="submit">제출</button>}
+        <div
+          css={css`
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+          `}
+        >
+          <div>
+            {isNotFirstQuestion && (
+              <button css={buttonStyle(theme)} type="button" value={-1} onClick={clickHandler}>
+                이전
+              </button>
+            )}
+          </div>
+
+          <div>
+            {!isLastQuestion && (
+              <button css={buttonStyle(theme)} type="button" value={1} onClick={clickHandler}>
+                다음
+              </button>
+            )}
+            {isLastQuestion && (
+              <button css={buttonStyle(theme)} type="submit">
+                제출
+              </button>
+            )}
+          </div>
         </div>
       </form>
     </div>
@@ -106,3 +131,16 @@ const TestMulti = () => {
 };
 
 export default TestMulti;
+
+const buttonStyle = (theme: Theme) => css`
+  padding: 0 5px;
+  border: 3px solid ${theme.fontMainColor};
+  border-radius: 5px;
+  color: ${theme.fontMainColor};
+  font-size: 1.25rem;
+
+  &:hover {
+    background-color: ${theme.fontMainColor};
+    color: ${theme.fontOppositeColor};
+  }
+`;
