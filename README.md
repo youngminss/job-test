@@ -46,15 +46,17 @@ npm start or yarn start
 
 ## 🧐 에러 해결 & 고민한 점
 
-- [🎯 default URL redirect 적용해보기](https://github.com/youngminss/job-test/blob/master/docs/default URL redirect 적용해보기.md)
-- [🎯 type 관련 에러에 대해](https://github.com/youngminss/job-test/blob/master/docs/type 관련 에러에 대해.md)
+- [🎯 default URL redirect 적용해보기](https://github.com/youngminss/job-test/blob/master/docs/default%20URL%20redirect%20%EC%A0%81%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0.md)
 
-- [🎯 typescript 절대경로로 import 하기](https://github.com/youngminss/job-test/blob/master/docs/typescript 절대경로로 import 하기.md)
-- [🎯 webpack & babel error 관련](https://github.com/youngminss/job-test/blob/master/docs/webpack %26 babel error 관련.md)
+- [🎯 typescript 절대경로로 import 하기](https://github.com/youngminss/job-test/blob/master/docs/typescript%20%EC%A0%88%EB%8C%80%EA%B2%BD%EB%A1%9C%EB%A1%9C%20import%20%ED%95%98%EA%B8%B0.md)
 
-- [🎯 검사번호 파라미터를 넘기는 과정에서](https://github.com/youngminss/job-test/blob/master/docs/검사번호 파라미터를 넘기는 과정에서.md)
+- [🎯 type 관련 에러에 대해](https://github.com/youngminss/job-test/blob/master/docs/type%20%EA%B4%80%EB%A0%A8%20%EC%97%90%EB%9F%AC%EC%97%90%20%EB%8C%80%ED%95%B4.md)
 
-- [🎯 여러 input 의 check 값을 한 번에 처리하는 방법](https://github.com/youngminss/job-test/blob/master/docs/여러 input 의 check 값을 한 번에 처리하는 방법에 대해.md)
+- [🎯 webpack & babel error 관련](https://github.com/youngminss/job-test/blob/master/docs/webpack%20%26%20babel%20error%20%EA%B4%80%EB%A0%A8.md)
+
+- [🎯 검사번호 파라미터를 넘기는 과정에서](https://github.com/youngminss/job-test/blob/master/docs/%EA%B2%80%EC%82%AC%EB%B2%88%ED%98%B8%20%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%EB%A5%BC%20%EB%84%98%EA%B8%B0%EB%8A%94%20%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C.md)
+
+- [🎯 여러 input 의 check 값을 한 번에 처리하는 방법](https://github.com/youngminss/job-test/blob/master/docs/%EC%97%AC%EB%9F%AC%20input%20%EC%9D%98%20check%20%EA%B0%92%EC%9D%84%20%ED%95%9C%20%EB%B2%88%EC%97%90%20%EC%B2%98%EB%A6%AC%ED%95%98%EB%8A%94%20%EB%B0%A9%EB%B2%95%EC%97%90%20%EB%8C%80%ED%95%B4.md)
 
 <br />
 
