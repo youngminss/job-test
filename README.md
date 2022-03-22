@@ -38,9 +38,9 @@ npm start or yarn start
 
 ✔️ 기존 `직업적성검사 - 일반 & 대학생용` 서비스만 가능한 것에서 `진로개발준비도검사`, `이공계전공적합도검사`, `주요능력효능감검사` 서비스까지 가능토록 구현
 
-✔️ React-Query 를 통한 Data Fetching 관리, Loading, Error State 에 대한 UX 처리
+✔️ React-Query 를 통한 Data Fetching 관리, Loading, Error State 에 대한 엣지 케이스 처리
 
-✔️ React-hooks-form 을 통한 사용자 폼 데이터 입력 구현
+✔️ React-hooks-form 을 통한 Uncontrolled Component 
 
 <br />
 
